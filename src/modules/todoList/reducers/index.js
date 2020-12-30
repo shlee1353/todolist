@@ -1,6 +1,6 @@
 import { ADDTODO, DELETETODO } from "../actions";
 
-export default function todoList(state = [], action) {
+const todoList = (state = [], action) => {
   switch (action.type) {
     case ADDTODO:
       return [
@@ -18,3 +18,5 @@ export default function todoList(state = [], action) {
       return state;
   }
 }
+
+export default todoList;
