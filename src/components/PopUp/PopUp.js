@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-const CookieCheck = () => {
+const PopUp = () => {
 
     useEffect(() => {
         var currentCookie = document.cookie;
@@ -34,4 +34,4 @@ const CookieCheck = () => {
     )
 }
 
-export default CookieCheck
+export default PopUp
