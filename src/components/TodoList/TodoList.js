@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux';
-import { addTodo, deleteTodo } from '../modules/todoList/actions';
+import { addTodo, deleteTodo } from '../../modules/todoList/actions';
 import Todo from './Todo';
 import TodoForm from './TodoForm';
 
