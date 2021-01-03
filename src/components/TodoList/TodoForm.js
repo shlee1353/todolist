@@ -13,7 +13,7 @@ const TodoForm = ({ onClickAddTodo }) =>  {
     }
 
     return (
-        <div>
+        <div className="todo_form">
             <input onChange={onChangeTitleHandler} value={title}/>
             <textarea onChange={onChangeDescriptionHandler} value={description}/>
             <button onClick={()=> onClickAddTodo({id: Math.random()*10, title, description})}>추가</button>

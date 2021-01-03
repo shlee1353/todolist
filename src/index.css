@@ -1,0 +1,7 @@
+.todo_form input, .todo_form textarea {
+    display: block;
+}
+
+.todo {
+    margin-top: 20px;
+}

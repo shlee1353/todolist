@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import rootReducer from "./modules";
 import reportWebVitals from './reportWebVitals';
 import App from "./components/App";
+import './index.css';
 
 const devTools =
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();

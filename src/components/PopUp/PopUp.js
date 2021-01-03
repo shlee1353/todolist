@@ -27,7 +27,6 @@ const PopUp = () => {
         var displayDate = new Date();
         var str = localStorage.getItem("displayDate");
         var compareDate = new Date(str);
-        console.log(typeof compareDate)
 
         if(str == undefined || str == null || compareDate.getTime()  <= displayDate.getTime()){
             document.querySelector('.notice').style.display = 'none'
