@@ -29,7 +29,13 @@ const todoList = (state = [], action) => {
     case MODIFYTODO:
       return state.map(todo => {
         if(todo.id === action.id) {
-          return {...todo, option : { allowance: action.allowance }}
+          return {
+            ...todo, 
+            option : {
+              ...todo.option,
+              allowance: action.allowance
+            }
+          }
         };
         return todo;
       })
@@ -43,7 +49,9 @@ const todoList = (state = [], action) => {
     case COMPLETETODO:
       return state.map(todo => {
         if(todo.id === action.id) {
-          return {...todo, completed : true}
+          return {
+            ...todo, completed : true
+          }
         };
         return todo;
       })
