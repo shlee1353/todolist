@@ -17,15 +17,9 @@ const todoList = (state = [], action) => {
       ];
 
     case DELETETODO:
-      const nextState = state.filter(todo => todo.id !== action.id);
-      return nextState;
+      return state.filter(todo => todo.id !== action.id)
 
-    // case MODIFYTODO:
-    //   const modifiedIndex = state.findIndex(todo => todo.id === action.id);
-    //   const modifiedArray = [...state];
-    //   modifiedArray[modifiedIndex].option.allowance = action.allowance;
-    //   return modifiedArray;
-
+    // https://stackoverflow.com/questions/40096036/how-to-update-a-value-of-a-nested-object-in-a-reducer
     case MODIFYTODO:
       return state.map(todo => {
         if(todo.id === action.id) {
@@ -38,23 +32,18 @@ const todoList = (state = [], action) => {
           }
         };
         return todo;
-      })
-
-    // case COMPLETETODO:
-    //   const completedIndex = state.findIndex(todo => todo.id === action.id);
-    //   const completedArray = [...state];
-    //   completedArray[completedIndex].completed = true;
-    //   return completedArray;
+      });
 
     case COMPLETETODO:
       return state.map(todo => {
         if(todo.id === action.id) {
           return {
-            ...todo, completed : true
+            ...todo, 
+            completed : true
           }
         };
         return todo;
-      })
+      });
 
     default:
       return state;
