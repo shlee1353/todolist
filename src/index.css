@@ -5,3 +5,7 @@
 .todo {
     margin-top: 20px;
 }
+
+.todo.completed .title, .todo.completed .desc {
+    text-decoration: line-through;
+}

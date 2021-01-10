@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Todo = ({ id, title, description, allowances, onClickDeleteTodo, onClickModifyTodo, onClickCompleteTodo }) => {
+const Todo = ({ id, title, description, allowances, completed, onClickDeleteTodo, onClickModifyTodo, onClickCompleteTodo }) => {
   const [allowance, setAllowance] = useState("");
 
   useEffect(() => {
@@ -12,9 +12,9 @@ const Todo = ({ id, title, description, allowances, onClickDeleteTodo, onClickMo
   }
 
   return (
-    <div className="todo">
-      <div>제목: {title}</div>
-      <div>설명: {description}</div>
+    <div className={`todo ${completed ? 'completed' : ''}`}>
+      <div className="title">제목: {title}</div>
+      <div className="desc">설명: {description}</div>
       <div>
         용돈(수정가능): <input onChange={onChangeAllowanceHandler} value={allowance}/>
       </div>

@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react'
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addTodo, deleteTodo, modifyTodo, completeTodo } from '../../modules/todoList/actions';
 import Todo from './Todo';
 import TodoForm from './TodoForm';
@@ -43,6 +43,7 @@ const TodoList = props => {
                 title={todo.title}
                 description={todo.description}
                 allowances={todo.option.allowance}
+                completed={todo.completed}
                 onClickDeleteTodo={handleDeleteTodo}
                 onClickModifyTodo={handleModifyTodo}
                 onClickCompleteTodo={handleCompleteTodo}
