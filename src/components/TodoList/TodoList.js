@@ -12,6 +12,7 @@ const TodoList = props => {
 
     const [toggle, setToggle] = useState(false);
     const [radioValue, setRadioValue] = useState("all");
+    const [isVisible, setIsVisible] = useState(false);
 
     const handleToggle = () => {
         setToggle(!toggle);
@@ -35,13 +36,14 @@ const TodoList = props => {
 
     const onRadioValueChange = useCallback( e => {
         setRadioValue(e.target.value);
-    })
+        setIsVisible(!isVisible);
+    });
 
     return (
         <div>
             <div className="user_control">
                 <button onClick={handleToggle}>글쓰기</button>
-                <div value="all">
+                <div>
                     <label htmlFor="all">
                         <input 
                             type="radio"
@@ -74,6 +76,7 @@ const TodoList = props => {
                 description={todo.description}
                 allowances={todo.option.allowance}
                 completed={todo.completed}
+                isVisible={isVisible}
                 onClickDeleteTodo={handleDeleteTodo}
                 onClickModifyTodo={handleModifyTodo}
                 onClickCompleteTodo={handleCompleteTodo}

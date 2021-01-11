@@ -17,3 +17,7 @@ body {
 .todo.completed .title, .todo.completed .desc {
     text-decoration: line-through;
 }
+
+.todo.hidden {
+    display: none;
+}
