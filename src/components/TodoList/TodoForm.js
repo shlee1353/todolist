@@ -14,8 +14,8 @@ const TodoForm = ({ onClickAddTodo }) =>  {
 
     return (
         <div className="todo_form">
-            <input onChange={onChangeTitleHandler} value={title}/>
-            <textarea onChange={onChangeDescriptionHandler} value={description}/>
+            <input onChange={onChangeTitleHandler} value={title} placeholder="제목"/>
+            <textarea onChange={onChangeDescriptionHandler} value={description} placeholder="설명"/>
             <button onClick={()=> onClickAddTodo({id: Math.random()*10, title, description})}>추가</button>
         </div>
     )
