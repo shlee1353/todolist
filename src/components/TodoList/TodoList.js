@@ -12,7 +12,10 @@ const TodoList = props => {
 
     const [toggle, setToggle] = useState(false);
     const [radioValue, setRadioValue] = useState("all");
-    const [isVisible, setIsVisible] = useState(false);
+    const [isHidden, setIsHiddden] = useState(false);
+    const [Filters, setFilters] = useState([]);
+
+    const values = Array.from(Array(11).keys()).slice(1);
 
     const handleToggle = () => {
         setToggle(!toggle);
@@ -36,7 +39,7 @@ const TodoList = props => {
 
     const onRadioValueChange = useCallback( e => {
         setRadioValue(e.target.value);
-        setIsVisible(!isVisible);
+        setIsHiddden(!isHidden);
     });
 
     return (
@@ -44,26 +47,35 @@ const TodoList = props => {
             <div className="user_control">
                 <button onClick={handleToggle}>글쓰기</button>
                 <div>
-                    <label htmlFor="all">
+                    <label>
                         <input 
                             type="radio"
-                            id="all"
                             value="all"
                             name="filter"
                             checked={radioValue === "all"}
                             onChange={onRadioValueChange}
                         /> All
                     </label>
-                    <label htmlFor="completed">
+                    <label>
                         <input 
                             type="radio"
-                            id="completed"
                             value="completed"
                             name="filter"
                             checked={radioValue === "completed"}
                             onChange={onRadioValueChange}
                         /> Completed
                     </label>
+                </div>
+                <div>
+                    {values.map(value => (
+                    <label>
+                        <input
+                            key={value}
+                            type="checkbox"
+                            value={value}
+                        />{value}
+                    </label>
+                    ))}
                 </div>
             </div>
             {/* [DEV] 필터 기능 추가 */}
@@ -76,7 +88,7 @@ const TodoList = props => {
                 description={todo.description}
                 allowances={todo.option.allowance}
                 completed={todo.completed}
-                isVisible={isVisible}
+                isHidden={isHidden}
                 onClickDeleteTodo={handleDeleteTodo}
                 onClickModifyTodo={handleModifyTodo}
                 onClickCompleteTodo={handleCompleteTodo}

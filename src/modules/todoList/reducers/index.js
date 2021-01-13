@@ -11,7 +11,7 @@ const todoList = (state = [], action) => {
           description: action.description,
           completed: false,
           option: {
-            allowance: parseInt(Math.random()*10, 10),
+            allowance: parseInt(Math.random()*10, 10) + 1,
           }
         }
       ];
