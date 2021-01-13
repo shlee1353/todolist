@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Todo = ({ id, title, description, allowances, completed, isVisible, onClickDeleteTodo, onClickModifyTodo, onClickCompleteTodo }) => {
+const Todo = ({ id, title, description, allowances, completed, isHidden, onClickDeleteTodo, onClickModifyTodo, onClickCompleteTodo }) => {
   const [allowance, setAllowance] = useState("");
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const Todo = ({ id, title, description, allowances, completed, isVisible, onClic
   }
 
   return (
-    <div className={`todo ${completed ? 'completed' : ''} ${completed === false && isVisible ? 'hidden':''}`}>
+    <div className={`todo ${completed ? 'completed' : ''} ${!completed && isHidden ? 'hidden':''}`} data-name={id}>
       <div className="title">제목: {title}</div>
       <div className="desc">설명: {description}</div>
       <div>
