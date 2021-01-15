@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addTodo, deleteTodo, modifyTodo, completeTodo } from '../../modules/todoList/actions';
 import Todo from './Todo';
@@ -13,7 +13,7 @@ const TodoList = props => {
     const [toggle, setToggle] = useState(false);
     const [radioValue, setRadioValue] = useState("all");
     const [isHidden, setIsHiddden] = useState(false);
-    const [Filters, setFilters] = useState([]);
+    const [checkedItems, setCheckedItems] = useState([]);
 
     const values = Array.from(Array(11).keys()).slice(1);
 
@@ -42,6 +42,19 @@ const TodoList = props => {
         setIsHiddden(!isHidden);
     });
 
+    const handleCheckedItems = useCallback( e => {
+        const currentValue = parseInt(e.target.value);
+        const currentIndex = checkedItems.indexOf(currentValue);
+        const newCheckedItems = [...checkedItems];
+
+        if (currentIndex === -1) {
+            newCheckedItems.push(currentValue);
+        } else {
+            newCheckedItems.splice(currentIndex, 1);
+        }
+        setCheckedItems(newCheckedItems);
+    });
+
     return (
         <div>
             <div className="user_control">
@@ -68,13 +81,13 @@ const TodoList = props => {
                 </div>
                 <div>
                     {values.map(value => (
-                    <label>
-                        <input
-                            key={value}
-                            type="checkbox"
-                            value={value}
-                        />{value}
-                    </label>
+                        <label key={value}>
+                            <input
+                                type="checkbox"
+                                value={value}
+                                onChange={handleCheckedItems}
+                            />{value}
+                        </label>
                     ))}
                 </div>
             </div>
@@ -82,16 +95,17 @@ const TodoList = props => {
             {toggle && <TodoForm onClickAddTodo={handleAddTodo} />}
             {todoList?.map(todo => (
                 <Todo
-                key={todo.id}
-                id={todo.id}
-                title={todo.title}
-                description={todo.description}
-                allowances={todo.option.allowance}
-                completed={todo.completed}
-                isHidden={isHidden}
-                onClickDeleteTodo={handleDeleteTodo}
-                onClickModifyTodo={handleModifyTodo}
-                onClickCompleteTodo={handleCompleteTodo}
+                    key={todo.id}
+                    id={todo.id}
+                    title={todo.title}
+                    description={todo.description}
+                    allowances={todo.option.allowance}
+                    completed={todo.completed}
+                    isHidden={isHidden}
+                    checkedItems={checkedItems}
+                    onClickDeleteTodo={handleDeleteTodo}
+                    onClickModifyTodo={handleModifyTodo}
+                    onClickCompleteTodo={handleCompleteTodo}
                 />
             ))}
         </div>

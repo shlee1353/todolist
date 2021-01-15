@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-const Todo = ({ id, title, description, allowances, completed, isHidden, onClickDeleteTodo, onClickModifyTodo, onClickCompleteTodo }) => {
+const Todo = ({ id, title, description, allowances, completed, isHidden, checkedItems, onClickDeleteTodo, onClickModifyTodo, onClickCompleteTodo }) => {
   const [allowance, setAllowance] = useState("");
 
   useEffect(() => {
-    setAllowance(allowances)
+    setAllowance(allowances);
   }, [allowances])
 
   const onChangeAllowanceHandler = event => {
@@ -12,7 +12,9 @@ const Todo = ({ id, title, description, allowances, completed, isHidden, onClick
   }
 
   return (
-    <div className={`todo ${completed ? 'completed' : ''} ${!completed && isHidden ? 'hidden':''}`} data-name={id}>
+    <div 
+      className={`todo ${completed ? 'completed' : ''} ${!completed && isHidden ? 'hidden':''} ${checkedItems.includes(allowances) ? "fas" : "far"}`}
+    >
       <div className="title">제목: {title}</div>
       <div className="desc">설명: {description}</div>
       <div>
