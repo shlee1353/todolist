@@ -13,7 +13,7 @@ const Todo = ({ id, title, description, allowances, completed, isHidden, checked
 
   return (
     <div 
-      className={`todo ${completed ? 'completed' : ''} ${!completed && isHidden ? 'hidden':''} ${checkedItems.includes(allowances) ? "fas" : "far"}`}
+      className={`todo ${completed ? 'completed' : ''} ${(!completed && isHidden) || (checkedItems.length > 0 && !checkedItems.includes(allowances)) ? 'hidden':''}`}
     >
       <div className="title">제목: {title}</div>
       <div className="desc">설명: {description}</div>
