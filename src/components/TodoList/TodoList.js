@@ -40,7 +40,7 @@ const TodoList = props => {
     const onRadioValueChange = useCallback( e => {
         setRadioValue(e.target.value);
         setIsHiddden(!isHidden);
-    });
+    },[isHidden]);
 
     const handleCheckedItems = useCallback( e => {
         const currentValue = parseInt(e.target.value);
