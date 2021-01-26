@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addTodo, deleteTodo, modifyTodo, completeTodo } from '../../modules/todoList/actions';
 import Todo from './Todo';
@@ -14,6 +14,7 @@ const TodoList = props => {
     const [radioValue, setRadioValue] = useState("all");
     const [isHidden, setIsHiddden] = useState(false);
     const [checkedItems, setCheckedItems] = useState([]);
+    const scrollRef = useRef(null);
 
     const values = Array.from(Array(11).keys()).slice(1);
 
@@ -55,6 +56,26 @@ const TodoList = props => {
         setCheckedItems(newCheckedItems);
     });
 
+    const scrollHandler = useCallback(() => {
+        console.log('Y절대위치', window.pageYOffset + scrollRef.current.getBoundingClientRect().top);
+
+        console.log('innerHeight', window.innerHeight);
+
+        console.log('offsetTop', scrollRef.current.offsetTop);
+        console.log('scrollTop', scrollRef.current.scrollTop);
+
+        // entire content & padding (visible or not)
+        console.log('scrollHeight', scrollRef.current.scrollHeight);
+        // visible content & padding
+        console.log('clientHeight', scrollRef.current.clientHeight);
+        // visible content & padding + border + scrollbar
+        console.log('offsetHeight', scrollRef.current.offsetHeight);
+    })
+
+    useEffect(() => {
+        scrollRef.current.addEventListener('scroll', scrollHandler)
+    }, [])
+
     return (
         <div>
             <div className="user_control">
@@ -93,21 +114,23 @@ const TodoList = props => {
             </div>
             {/* [DEV] 필터 기능 추가 */}
             {toggle && <TodoForm onClickAddTodo={handleAddTodo} />}
-            {todoList?.map(todo => (
-                <Todo
-                    key={todo.id}
-                    id={todo.id}
-                    title={todo.title}
-                    description={todo.description}
-                    allowances={todo.option.allowance}
-                    completed={todo.completed}
-                    isHidden={isHidden}
-                    checkedItems={checkedItems}
-                    onClickDeleteTodo={handleDeleteTodo}
-                    onClickModifyTodo={handleModifyTodo}
-                    onClickCompleteTodo={handleCompleteTodo}
-                />
-            ))}
+            <div className="todo_wrap" ref={scrollRef}>
+                {todoList?.map(todo => (
+                    <Todo
+                        key={todo.id}
+                        id={todo.id}
+                        title={todo.title}
+                        description={todo.description}
+                        allowances={todo.option.allowance}
+                        completed={todo.completed}
+                        isHidden={isHidden}
+                        checkedItems={checkedItems}
+                        onClickDeleteTodo={handleDeleteTodo}
+                        onClickModifyTodo={handleModifyTodo}
+                        onClickCompleteTodo={handleCompleteTodo}
+                    />
+                ))}
+            </div>
         </div>
     )
 }
