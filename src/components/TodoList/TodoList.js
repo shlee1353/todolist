@@ -23,7 +23,12 @@ const TodoList = props => {
     }
 
     const handleAddTodo = useCallback(({ id, title, description }) => {
-        dispatch(addTodo({ id, title, description }));
+        // [DEV] 정규식 추가
+        if(title && description ) {
+            dispatch(addTodo({ id, title, description }));
+        } else {
+            alert('empty!');
+        }
     }, []);
 
     const handleDeleteTodo = useCallback( id => {
@@ -57,7 +62,7 @@ const TodoList = props => {
     });
 
     const scrollHandler = useCallback(() => {
-        console.log('Y절대위치', window.pageYOffset + scrollRef.current.getBoundingClientRect().top);
+        console.log('-> Y절대위치', window.pageYOffset + scrollRef.current.getBoundingClientRect().top);
 
         console.log('innerHeight', window.innerHeight);
 
