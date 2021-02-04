@@ -22,12 +22,17 @@ const TodoList = props => {
         setToggle(!toggle);
     }
 
+    const checkDescription = (description) => {
+        // 영문만 가능
+        const descriptionRegex = /^[a-zA-Z]+$/;
+        return descriptionRegex.test(description);
+    }
+
     const handleAddTodo = useCallback(({ id, title, description }) => {
-        // [DEV] 정규식 추가
-        if(title && description ) {
+        if(title && description && checkDescription(description)) {
             dispatch(addTodo({ id, title, description }));
         } else {
-            alert('empty!');
+            alert('Check Your Title and Description!');
         }
     }, []);
 
