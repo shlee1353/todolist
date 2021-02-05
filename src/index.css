@@ -30,3 +30,11 @@ body {
 .todo.hidden {
     display: none;
 }
+
+.todo_api {
+    margin-top: 20px;
+}
+
+.api_info {
+    margin-top: 10px;
+}
