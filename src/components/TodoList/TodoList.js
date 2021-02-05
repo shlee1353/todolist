@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addTodo, deleteTodo, modifyTodo, completeTodo } from '../../modules/todoList/actions';
 import Todo from './Todo';
 import TodoForm from './TodoForm';
+import axios from 'axios';
 
 const TodoList = props => {
     // const { todoList, handleAddTodo, handleDeleteTodo, handleModifyTodo, handleCompleteTodo } = props;
@@ -14,16 +15,19 @@ const TodoList = props => {
     const [radioValue, setRadioValue] = useState("all");
     const [isHidden, setIsHiddden] = useState(false);
     const [checkedItems, setCheckedItems] = useState([]);
+    const [jsonData, setJsonData] = useState();
     const scrollRef = useRef(null);
 
+    // 1 - 10 숫자 생성
     const values = Array.from(Array(11).keys()).slice(1);
 
     const handleToggle = () => {
         setToggle(!toggle);
     }
 
+    // [DEV] 정규식 체크
     const checkDescription = (description) => {
-        // 영문만 가능
+        // 영문만 입력 가능
         const descriptionRegex = /^[a-zA-Z]+$/;
         return descriptionRegex.test(description);
     }
@@ -35,6 +39,7 @@ const TodoList = props => {
             alert('Check Your Title and Description!');
         }
     }, []);
+    // [DEV] // 정규식 체크
 
     const handleDeleteTodo = useCallback( id => {
         dispatch(deleteTodo(id));
@@ -53,6 +58,7 @@ const TodoList = props => {
         setIsHiddden(!isHidden);
     },[isHidden]);
 
+    // [DEV] checked 필터
     const handleCheckedItems = useCallback( e => {
         const currentValue = parseInt(e.target.value);
         const currentIndex = checkedItems.indexOf(currentValue);
@@ -65,7 +71,9 @@ const TodoList = props => {
         }
         setCheckedItems(newCheckedItems);
     });
+    // [DEV] // checked 필터
 
+    // [DEV] 엘리먼트 위치
     const scrollHandler = useCallback(() => {
         console.log('-> Y절대위치', window.pageYOffset + scrollRef.current.getBoundingClientRect().top);
 
@@ -80,11 +88,27 @@ const TodoList = props => {
         console.log('clientHeight', scrollRef.current.clientHeight);
         // visible content & padding + border + scrollbar
         console.log('offsetHeight', scrollRef.current.offsetHeight);
-    })
+    });
+    // [DEV] // 엘리먼트 위치
+
+    // [DEV] 비동기 데이터
+    const getData = async () => {
+        try {
+            return await axios.get('https://jsonplaceholder.typicode.com/todos/1');
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const getJSON = async () => {
+        const result = await getData();
+        setJsonData(result.data)
+    };
+    // [DEV] // 비동기 데이터
 
     useEffect(() => {
         scrollRef.current.addEventListener('scroll', scrollHandler)
-    }, [])
+    }, []);
 
     return (
         <div>
@@ -140,6 +164,15 @@ const TodoList = props => {
                         onClickCompleteTodo={handleCompleteTodo}
                     />
                 ))}
+            </div>
+            <div className="todo_api">
+                <button onClick={getJSON}>api 호출</button>
+                {jsonData && (
+                    <div className="api_info">
+                        <div>{jsonData.id}</div>
+                        <div>{jsonData.title}</div>
+                    </div>
+                )}
             </div>
         </div>
     )
