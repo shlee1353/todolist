@@ -17,6 +17,15 @@ const TodoList = props => {
     const [checkedItems, setCheckedItems] = useState([]);
     const [jsonData, setJsonData] = useState();
     const scrollRef = useRef(null);
+    const [number, setNumber] = useState(0);
+
+    // Lifecycle
+    useEffect(() => {
+        console.log("component did mount with useEffect!");
+        return () => {
+            console.log("I'm dying...");
+        };
+    }, [number]);
 
     // 1 - 10 숫자 생성
     const values = Array.from(Array(11).keys()).slice(1);
@@ -165,6 +174,7 @@ const TodoList = props => {
                     />
                 ))}
             </div>
+            {/* [DEV] https://jsonplaceholder.typicode.com/ 데이터 가공해서 제공 */}
             <div className="todo_api">
                 <button onClick={getJSON}>api 호출</button>
                 {jsonData && (
@@ -173,6 +183,16 @@ const TodoList = props => {
                         <div>{jsonData.title}</div>
                     </div>
                 )}
+            </div>
+            <div>
+                <h2>number is {number}</h2>
+                <button
+                    onClick={() => {
+                    setNumber(number + 1);
+                    }}
+                >
+                    Increment
+                </button>
             </div>
         </div>
     )
