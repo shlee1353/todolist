@@ -18,6 +18,8 @@ const TodoList = props => {
     const [jsonData, setJsonData] = useState();
     const scrollRef = useRef(null);
     const [number, setNumber] = useState(0);
+    const [count, setCount] = useState("Today's Date");
+
 
     // Lifecycle
     useEffect(() => {
@@ -119,9 +121,44 @@ const TodoList = props => {
         scrollRef.current.addEventListener('scroll', scrollHandler)
     }, []);
 
+    // 날짜 시간
+    const printNow = () => {
+        const today = new Date();
+
+        const dayNames = ['(일요일)', '(월요일)', '(화요일)', '(수요일)', '(목요일)', '(금요일)', '(토요일)'];
+
+        const day = dayNames[today.getDay()];
+
+        const year = today.getFullYear();
+        const month = today.getMonth() + 1;
+        const date = today.getDate();
+        let hour = today.getHours();
+        let minute = today.getMinutes();
+        let second = today.getSeconds();
+        const ampm = hour >= 12 ? 'PM' : 'AM';
+
+        hour %= 12;
+        hour = hour || 12;
+
+        minute = minute < 10 ? '0' + minute : minute;
+        second = second < 10 ? '0' + second : second;
+
+        const now = `${year}년 ${month}월 ${date}일 ${day} ${hour}:${minute}:${second} ${ampm}`;
+        return now;
+    }
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setCount(printNow());
+        }, 1000);
+
+        return () => clearTimeout(timeout);
+    },[count]);
+
     return (
         <div>
             <div className="user_control">
+                <div>{count}</div>
                 <button onClick={handleToggle}>글쓰기</button>
                 <div>
                     <label>
