@@ -86,7 +86,8 @@ const TodoList = props => {
 
     // [DEV] 엘리먼트 위치
     const scrollHandler = useCallback(() => {
-        console.log('-> Y절대위치', window.pageYOffset + scrollRef.current.getBoundingClientRect().top);
+        console.log('-> Y절대위치-top', window.pageYOffset + scrollRef.current.getBoundingClientRect().top);
+        console.log('-> Y절대위치-bottom', window.pageYOffset + scrollRef.current.getBoundingClientRect().bottom);
 
         console.log('innerHeight', window.innerHeight);
 
