@@ -27,4 +27,4 @@ const TodoForm = ({ onClickAddTodo }) =>  {
     )
 }
 
-export default TodoForm;
+export default TodoForm
